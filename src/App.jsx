@@ -1,12 +1,22 @@
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+	const [currentInput, setCurrentInput] = useState('');
+	function InputUpdate(e) {
+		setCurrentInput(e.target.value);
+	}
 	return (
 		<>
 			<form className='new-item-form'>
 				<div className='form-row'>
 					<label htmlFor='item'>New item</label>
-					<input type='text' id='item' />
+					<input
+						value={currentInput}
+						onChange={InputUpdate}
+						type='text'
+						id='item'
+					/>
 				</div>
 				<button className='btn'>Add</button>
 			</form>
