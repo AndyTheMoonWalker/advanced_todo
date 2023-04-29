@@ -1,10 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { NewTodoForm } from './components/NewTodoForm';
 import { TodoList } from './components/TodoList';
 
 function App() {
-	const [todos, setTodos] = useState([]);
+	const [todos, setTodos] = useState(() => {
+		const localTodos = localStorage.getItem('ITEMS');
+		if (localTodos === null) return [];
+		return JSON.parse(localTodos);
+	});
+
+	useEffect(() => {
+		localStorage.setItem('ITEMS', JSON.stringify(todos));
+	}, [todos]);
 
 	function toggleTodo(id, completed) {
 		setTodos((prev) => {
